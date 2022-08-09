@@ -1,6 +1,6 @@
 import path from 'path';
 const pathDotEnv = path.join(__dirname, '../../.env');
-require('dotenv').config();
+require('dotenv').config({ path: pathDotEnv });
 
 import { EmbedBuilder, Message } from 'discord.js';
 import { JoultsMusicClient } from './Structures/JoultsMusicClient';
