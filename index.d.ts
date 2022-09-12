@@ -5,6 +5,8 @@ declare global {
             GUILD_ID: string;
             CLIENT_ID: string;
             OWNER: string;
+            SPOTIFY_CLIENT_ID: string;
+            SPOTIFY_SECRET_ID: string;
         }
     }
 }

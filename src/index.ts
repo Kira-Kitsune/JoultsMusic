@@ -6,6 +6,7 @@ import { EmbedBuilder, Message } from 'discord.js';
 import { JoultsMusicClient } from './Structures/JoultsMusicClient';
 
 export const client = new JoultsMusicClient();
+
 client.start(process.env.TOKEN);
 
 let storedNPMsg: Message;

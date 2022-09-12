@@ -20,7 +20,12 @@ export class JoultsMusicClient extends Client {
         emitAddSongWhenCreatingQueue: true,
         emptyCooldown: 30,
         plugins: [
-            new SpotifyPlugin(),
+            new SpotifyPlugin({
+                api: {
+                    clientId: process.env.SPOTIFY_CLIENT_ID,
+                    clientSecret: process.env.SPOTIFY_SECRET_ID,
+                },
+            }),
             new SoundCloudPlugin(),
             new YtDlpPlugin({ update: false }),
         ],
