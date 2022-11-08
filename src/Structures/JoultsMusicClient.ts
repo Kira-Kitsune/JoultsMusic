@@ -8,6 +8,9 @@ import { SpotifyPlugin } from '@distube/spotify';
 import { SoundCloudPlugin } from '@distube/soundcloud';
 import { YtDlpPlugin } from '@distube/yt-dlp';
 
+const clientId = process.env.SPOTIFY_CLIENT_ID,
+    clientSecret = process.env.SPOTIFY_SECRET_ID;
+
 export class JoultsMusicClient extends Client {
     commands: Collection<string, CommandType> = new Collection();
     utils = new Util(this);
@@ -22,8 +25,8 @@ export class JoultsMusicClient extends Client {
         plugins: [
             new SpotifyPlugin({
                 api: {
-                    clientId: process.env.SPOTIFY_CLIENT_ID,
-                    clientSecret: process.env.SPOTIFY_SECRET_ID,
+                    clientId,
+                    clientSecret,
                 },
             }),
             new SoundCloudPlugin(),
