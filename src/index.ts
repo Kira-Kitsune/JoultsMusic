@@ -12,55 +12,49 @@ client.start(process.env.TOKEN);
 let storedNPMsg: Message;
 
 client.distube
-    .on('playSong', async (queue, song) => {
+    .on('playSong', async ({ textChannel }, { name, url, user }) => {
         const embed = new EmbedBuilder()
             .setTitle(`**Now Playing**`)
             .setColor(client.colour)
-            .setDescription(`[${song.name}](${song.url}) [${song.user}]`);
-        const channel = queue.textChannel;
-        storedNPMsg = await channel.send({ embeds: [embed] });
+            .setDescription(`[${name}](${url}) [${user}]`);
+        storedNPMsg = await textChannel.send({ embeds: [embed] });
     })
     .on('finishSong', async () => {
         try {
             if (storedNPMsg) await storedNPMsg.delete();
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     })
-    .on('finish', async (queue) => {
+    .on('finish', async ({ textChannel }) => {
         try {
-            const channel = queue.textChannel;
             const embed = new EmbedBuilder()
                 .setColor(client.colour)
                 .setDescription(`The queue has ended.`);
-            await channel.send({ embeds: [embed] });
+            await textChannel.send({ embeds: [embed] });
             if (storedNPMsg) await storedNPMsg.delete();
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     })
-    .on('addSong', async (queue, song) => {
+    .on('addSong', async ({ textChannel }, { name, url, user }) => {
         try {
-            const channel = queue.textChannel;
             const embed = new EmbedBuilder()
                 .setColor(client.colour)
-                .setDescription(
-                    `Queued [${song.name}](${song.url}) [${song.user}]`
-                );
-            return await channel.send({ embeds: [embed] });
+                .setDescription(`Queued [${name}](${url}) [${user}]`);
+            return await textChannel.send({ embeds: [embed] });
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     })
-    .on('addList', async (queue, playlist) => {
+    .on('addList', async ({ textChannel }, { name, songs }) => {
         try {
-            const channel = queue.textChannel;
             const embed = new EmbedBuilder()
                 .setColor(client.colour)
                 .setDescription(
-                    `Queued ${playlist.songs.length} songs from playlist: ${playlist.name}. [${playlist.songs[0].user}]`
+                    `Queued ${songs.length} songs from playlist: ${name}. [${songs[0].user}]`
                 );
-            return await channel.send({ embeds: [embed] });
+            return await textChannel.send({ embeds: [embed] });
         } catch (err) {
             console.log(err);
         }
@@ -72,7 +66,7 @@ client.distube
                 .setDescription(`${client.emote.ERROR} | ${error}`);
             if (channel) channel.send({ embeds: [embed] });
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     });
 

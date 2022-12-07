@@ -9,7 +9,7 @@ export default new Command({
         const { member, guild } = interaction;
         const { members } = guild;
 
-        const voiceChannel = member.voice.channel;
+        const { channel: voiceChannel } = member.voice;
 
         if (!voiceChannel)
             return await interaction.reply({
@@ -17,10 +17,9 @@ export default new Command({
                 ephemeral: true,
             });
 
-        if (
-            members.me.voice.channelId &&
-            voiceChannel.id !== members.me.voice.channelId
-        )
+        const { channelId: botChId } = members.me.voice;
+
+        if (botChId && voiceChannel.id !== botChId)
             return await interaction.reply({
                 content: `You're not in the same voice channel. I'm playing music in ${members.me.voice.channel}.`,
                 ephemeral: true,
