@@ -132,7 +132,7 @@ export default class Util {
 
     globPath(folder: string) {
         return path
-            .join(__dirname, `../${folder}/**/*.ts`)
+            .join(__dirname, `../${folder}/**/*{.ts,.js}`)
             .replaceAll('\\', '/');
     }
 
