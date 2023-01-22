@@ -130,10 +130,14 @@ export default class Util {
         }
     }
 
+    globPath(folder: string) {
+        return path
+            .join(__dirname, `../${folder}/**/*.ts`)
+            .replaceAll('\\', '/');
+    }
+
     async loadCommands(): Promise<void> {
-        const commandFiles = await glob.promise(
-            path.join(__dirname, `../Commands/**/*{.ts,.js}`)
-        );
+        const commandFiles = await glob.promise(this.globPath('Commands'));
         commandFiles.forEach(async (filePath) => {
             delete require.cache[filePath];
             const command: CommandType = <CommandType>(
@@ -149,9 +153,7 @@ export default class Util {
     }
 
     async loadEvents(): Promise<void> {
-        const eventFiles = await glob.promise(
-            path.join(__dirname, `../Events/**/*{.ts,.js}`)
-        );
+        const eventFiles = await glob.promise(this.globPath('Events'));
         eventFiles.forEach(async (filePath) => {
             const event: Event<keyof ClientEvents> = <
                 Event<keyof ClientEvents>
