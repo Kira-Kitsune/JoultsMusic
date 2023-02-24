@@ -62,7 +62,7 @@ export default new Command({
             if (songs[0])
                 embed.addFields({
                     name: `Current`,
-                    value: `[${songs[0].name}](${songs[0].url}) - ${queue.formattedCurrentTime} / ${queue.songs[0].formattedDuration}`,
+                    value: `[${songs[0].name}](${songs[0].url})\nDuration: ${queue.formattedCurrentTime} / ${queue.songs[0].formattedDuration}`,
                 });
 
             !current.length
