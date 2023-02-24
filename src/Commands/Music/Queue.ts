@@ -62,26 +62,25 @@ export default new Command({
             if (songs[0])
                 embed.addFields({
                     name: `Current`,
-                    value: `[${songs[0].name}](${songs[0].url}) - Track Duration: ${songs[0].formattedDuration}`,
+                    value: `[${songs[0].name}](${songs[0].url}) - ${queue.formattedCurrentTime} / ${queue.songs[0].formattedDuration}`,
                 });
 
-            if (!current.length)
-                embed.addFields({
-                    name: `**Queue for __${guildName}__**`,
-                    value: `No tracks in the queue`,
-                });
-            else
-                embed.addFields({
-                    name: `**Queue for __${guildName}__**`,
-                    value: `━━━━━━━━━━━━━━━━━━━━━━━━`,
-                });
+            !current.length
+                ? embed.addFields({
+                      name: `**Queue for __${guildName}__**`,
+                      value: `No tracks in the queue`,
+                  })
+                : embed.addFields({
+                      name: `**Queue for __${guildName}__**`,
+                      value: `━━━━━━━━━━━━━━━━━━━━━━━━`,
+                  });
 
             current.forEach((song, i) =>
                 embed.addFields({
                     name: `Track ${start + ++i} - Duration: ${
                         song.formattedDuration
                     }`,
-                    value: `[${song.name}](${song.url})`,
+                    value: `[${song.name}](${song.url})\nRequested by ${song.user}`,
                 })
             );
 

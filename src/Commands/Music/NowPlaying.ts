@@ -1,4 +1,4 @@
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, quote } from 'discord.js';
 import { Command } from '../../Structures/Command';
 
 export default new Command({
@@ -33,12 +33,20 @@ export default new Command({
                 ephemeral: true,
             });
 
+        const currentSong = queue.songs[0];
+
         const embed = new EmbedBuilder()
             .setTitle(`${client.emote.PLAY} **Now Playing**`)
             .setColor(client.colour)
             .setDescription(
-                `[${queue.songs[0].name}](${queue.songs[0].url}) [${queue.songs[0].user}]`
-            );
+                `[${currentSong.name}](${currentSong.url}) [${currentSong.user}]`
+            )
+            .addFields([
+                {
+                    name: 'Time',
+                    value: `${queue.formattedCurrentTime} / ${currentSong.formattedDuration}`,
+                },
+            ]);
 
         return await interaction.reply({ embeds: [embed] });
     },
