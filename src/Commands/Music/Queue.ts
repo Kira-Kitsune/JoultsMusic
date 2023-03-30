@@ -13,7 +13,6 @@ export default new Command({
     run: async ({ client, interaction }) => {
         const { member, guild, user } = interaction;
         const { members, name: guildName } = guild;
-        const { username } = user;
 
         const voiceChannel = member.voice.channel;
 

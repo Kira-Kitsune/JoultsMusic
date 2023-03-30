@@ -21,7 +21,7 @@ export default new Event('ready', async (client: JoultsMusicClient) => {
         ].join('\n')
     );
 
-    const activities: string[] = [
+    const activities = [
         `${client.guilds.cache.size} servers!`,
         `${
             client.channels.cache.filter((c) => c.type !== ChannelType.DM).size
