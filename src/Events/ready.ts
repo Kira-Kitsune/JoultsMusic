@@ -21,36 +21,40 @@ export default new Event('ready', async (client: JoultsMusicClient) => {
         ].join('\n')
     );
 
-    const activities = [
-        `${client.guilds.cache.size} servers!`,
-        `${
-            client.channels.cache.filter((c) => c.type !== ChannelType.DM).size
-        } channels!`,
-        `${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)} users!`,
-        `waiting for pats.`,
-        `vibing to your epic beats.`,
-        `getting pats from Kira.`,
-        `sleeping by Kira's side.`,
-        `getting cuddles.`,
-        `running through grass fields.`,
-        `snuggling into Kira`,
-        `just being a fox.`,
-        `waiting for DJ Thor's tunes.`,
-        `giving Kira licks on the face.`,
-    ];
-
-    let i = 0;
-    setInterval(
-        () =>
-            client.user.setActivity({
-                type: ActivityType.Listening,
-                name: `Music | ${activities[i++ % activities.length]}`,
-            }),
-        15000
-    );
+    setStatus(client);
+    setInterval(() => setStatus(client), 15000);
 
     const owner = await client.users.fetch(client.owner);
     owner.send({
         content: `🏁 Started **${client.user.tag}**\n▶️ Loaded **${client.commands.size} commands!**`,
     });
 });
+
+let i = 0;
+function setStatus(client: JoultsMusicClient) {
+    const activities: string[] = [
+        `In ${client.guilds.cache.size} servers!`,
+        `Reading ${
+            client.channels.cache.filter(
+                (channel) => channel.type !== ChannelType.DM
+            ).size
+        } channels!`,
+        `Watching ${client.guilds.cache.reduce(
+            (accum, guild) => accum + guild.memberCount,
+            0
+        )} users!`,
+        `Waiting for pats.`,
+        `Vibing to your epic beats.`,
+        `Getting pats from Kira.`,
+        `Sleeping by Kira's side.`,
+        `Getting cuddles by anyone.`,
+        `Running through grass fields.`,
+        `Snuggling into Kira.`,
+        `Just being a fox.`,
+        `Giving Kira licks on the face.`,
+    ];
+    client.user.setActivity({
+        type: ActivityType.Listening,
+        name: `Music | ${activities[i++ % activities.length]}`,
+    });
+}
