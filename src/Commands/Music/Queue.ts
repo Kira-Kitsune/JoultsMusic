@@ -59,10 +59,16 @@ export default new Command({
                 });
 
             if (songs[0])
-                embed.addFields({
-                    name: `Current`,
-                    value: `[${songs[0].name}](${songs[0].url})\nDuration: ${queue.formattedCurrentTime} / ${queue.songs[0].formattedDuration}`,
-                });
+                embed.addFields([
+                    {
+                        name: `Current`,
+                        value: `[${songs[0].name}](${songs[0].url})\nDuration: ${queue.formattedCurrentTime} / ${queue.songs[0].formattedDuration}`,
+                    },
+                    {
+                        name: `Estimated Time Remaining in Queue`,
+                        value: `${queue.formattedDuration}`,
+                    },
+                ]);
 
             !current.length
                 ? embed.addFields({

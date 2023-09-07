@@ -1,12 +1,21 @@
 import path from 'path';
 const pathDotEnv = path.join(__dirname, '../../.env');
-require('dotenv').config({ path: pathDotEnv });
+const TARGET = process.env.npm_lifecycle_event || 'prod';
+
+switch (TARGET) {
+    case 'dev':
+        require('dotenv').config();
+        break;
+    case 'prod':
+    default:
+        require('dotenv').config({ path: pathDotEnv });
+        break;
+}
 
 import { EmbedBuilder, Message } from 'discord.js';
 import { JoultsMusicClient } from './Structures/JoultsMusicClient';
 
 export const client = new JoultsMusicClient();
-
 client.start(process.env.TOKEN);
 
 let storedNPMsg: Message;
