@@ -11,6 +11,14 @@ export default new Command({
             type: ApplicationCommandOptionType.String,
             required: true,
         },
+        {
+            name: 'position',
+            description:
+                'The position you want to put the song (1 is next song).',
+            type: ApplicationCommandOptionType.Integer,
+            required: false,
+            minValue: 1,
+        },
     ],
     dmPermission: false,
     run: async ({ client, interaction, args }) => {
@@ -34,13 +42,18 @@ export default new Command({
             });
 
         const search = args.getString('request');
+        let position = args.getInteger('position') || 0;
 
         const embed = new EmbedBuilder().setColor(client.colour);
+        const queue = client.distube.getQueue(voiceChannel);
+
+        if (position > queue.songs.length) position = 0;
 
         try {
             client.distube.play(voiceChannel, search, {
                 textChannel: channel,
                 member: member,
+                position: position,
             });
             embed.setDescription(`${client.emote.PLAY} Queued request`);
             return await interaction.reply({
