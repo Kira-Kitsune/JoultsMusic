@@ -45,9 +45,10 @@ export default new Command({
         let position = args.getInteger('position') || 0;
 
         const embed = new EmbedBuilder().setColor(client.colour);
-        const queue = client.distube.getQueue(voiceChannel);
+        const queueLength =
+            client.distube.getQueue(voiceChannel)?.songs?.length || 0;
 
-        if (position > queue.songs.length) position = 0;
+        if (position > queueLength) position = 0;
 
         try {
             client.distube.play(voiceChannel, search, {
