@@ -3,6 +3,7 @@ import { JoultsMusicClient } from '../Structures/JoultsMusicClient';
 import { guildCommands, slashCommands } from '../Structures/Util';
 import { ActivityType, ChannelType } from 'discord.js';
 
+//@ts-ignore
 export default new Event('ready', async (client: JoultsMusicClient) => {
     await client.utils.registerCommands({
         commands: guildCommands,

@@ -11,17 +11,20 @@ import {
 } from 'discord.js';
 import { JoultsMusicClient } from '../Structures/JoultsMusicClient';
 
+//@ts-ignore
 export interface JoultsMusicInteraction extends CommandInteraction {
     client: JoultsMusicClient;
     member: GuildMember;
 }
 
+//@ts-ignore
 export interface JoultsButtonInteraction extends ButtonInteraction {
     client: JoultsMusicClient;
     member: GuildMember;
     channel: TextChannel;
 }
 
+//@ts-ignore
 export interface JoultsModalInteraction extends ModalSubmitInteraction {
     client: JoultsMusicClient;
     member: GuildMember;
