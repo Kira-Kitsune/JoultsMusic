@@ -1,5 +1,5 @@
 import path from "node:path";
-const pathDotEnv = path.join(__dirname, "../../.env");
+const pathDotEnv = path.join(__dirname, "../.env");
 const TARGET = process.env.npm_lifecycle_event || "prod";
 
 switch (TARGET) {
