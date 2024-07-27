@@ -6,7 +6,6 @@ import Util from "./Util";
 import DisTube from "distube";
 import { SpotifyPlugin } from "@distube/spotify";
 import { SoundCloudPlugin } from "@distube/soundcloud";
-import { YtDlpPlugin } from "@distube/yt-dlp";
 import { YouTubePlugin } from "@distube/youtube";
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
@@ -22,7 +21,9 @@ export class JoultsMusicClient extends Client {
 		emitNewSongOnly: true,
 		emitAddSongWhenCreatingQueue: true,
 		plugins: [
-			new YouTubePlugin(),
+			new YouTubePlugin({
+				cookies: [],
+			}),
 			new SpotifyPlugin({
 				api: {
 					clientId,
@@ -30,7 +31,6 @@ export class JoultsMusicClient extends Client {
 				},
 			}),
 			new SoundCloudPlugin(),
-			new YtDlpPlugin({ update: false }),
 		],
 	});
 
