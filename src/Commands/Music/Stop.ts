@@ -41,6 +41,7 @@ export default new Command({
 			embed.setDescription(`${client.emote.STOP} **Stopped** the music.`);
 			return await interaction.reply({ embeds: [embed] });
 		} catch (error) {
+			queue.voice.leave();
 			embed.setDescription(`${client.emote.ERROR} | ${error}`);
 			return await interaction.reply({
 				embeds: [embed],

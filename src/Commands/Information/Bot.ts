@@ -1,8 +1,7 @@
 import { Command } from "../../Structures/Command";
-import { EmbedBuilder, version as djsversion } from "discord.js";
+import { EmbedBuilder, version } from "discord.js";
 import os from "node:os";
 import ms from "ms";
-import { version } from "../../../package.json";
 import { time } from "@discordjs/builders";
 
 export default new Command({
@@ -60,7 +59,7 @@ export default new Command({
 				{ name: "🤖 Bot Version", value: "v${version}", inline: true },
 				{
 					name: "<:discordjs:868151745962975262> discord.js",
-					value: `v${djsversion}`,
+					value: `v${version}`,
 					inline: true,
 				},
 				{
