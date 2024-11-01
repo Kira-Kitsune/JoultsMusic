@@ -45,7 +45,7 @@ export class JoultsMusicClient extends Client {
 			emitAddSongWhenCreatingQueue: true,
 			plugins: [
 				new YouTubePlugin({
-					cookies: JSON.parse(fs.readFileSync(cookiesPath).toString()),
+					// cookies: JSON.parse(fs.readFileSync(cookiesPath).toString()),
 				}),
 				new SpotifyPlugin({
 					api: {
